@@ -43,8 +43,8 @@ module.exports = merge(webpackBaseConfig, {
             }
         }),
         new HtmlWebpackPlugin({
-            title: 'iView admin v' + package.version,
-            favicon: './td_icon.ico',
+            title: 'Dashboard v' + package.version,
+            favicon: './db_icon.ico',
             filename: '../index.html',
             template: './src/template/index.ejs',
             inject: false

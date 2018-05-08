@@ -5,11 +5,8 @@
 <template>
     <div class="login" @keydown.enter="handleSubmit">
         <div class="login-con">
-            <Card :bordered="false">
-                <p slot="title">
-                    <Icon type="log-in"></Icon>
-                    欢迎登录
-                </p>
+            <Card>
+                <p slot="title">请登录</p>
                 <div class="form-con">
                     <Form ref="loginForm" :model="form" :rules="rules">
                         <FormItem prop="userName">
@@ -69,7 +66,3 @@ export default {
     }
 };
 </script>
-
-<style>
-
-</style>

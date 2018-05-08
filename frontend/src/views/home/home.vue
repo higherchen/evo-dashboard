@@ -3,7 +3,7 @@
 </style>
 <template>
     <div class="home-main">
-        
+        hello world
     </div>
 </template>
 
