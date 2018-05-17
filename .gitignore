@@ -1,0 +1,8 @@
+logs/*
+tmp
+*.swp
+*.log
+.idea
+.DS_Store
+.tags
+.tags1
