@@ -4,6 +4,6 @@
     'vue'
   ],
   "globals": {
-    "Promise": true
+    "Promise": true  
   }
 }

@@ -1,25 +1,67 @@
 import axios from 'axios';
+import { base } from 'config';
 
-let base = '';
+axios.defaults.withCredentials = true;
 
-export const fetchList = params => { return axios.get(`${ base }/user/list`, {params: params}); };
+var qs = require('qs');
 
-export const addUser = params => { return axios.post(`${ base }/user/add`, params); };
+let form_header = { 'Content-Type': 'application/x-www-form-urlencoded' };
 
-export const editUser = params => { return axios.post(`${ base }/user/edit`, params); };
+// 全局注册异常处理方法
+export const handleException = el => {
+  axios.interceptors.response.use(function(response) {
+    // 未登录
+    if (response.data.code === 1101) {
+      localStorage.removeItem('user');
+      el.$router.push({ path: '/login' });
+    }
+    if (response.data.flush_storage) {
+      localStorage.removeItem('user');
+      axios.get(`${ base }/auth`).then((ret) => {
+        let { code, data } = ret.data;
+        if (code !== 1) {
+          el.$router.push({path: el.$route.query.redirect});
+        } else {
+          localStorage.setItem('user', JSON.stringify(data));
+        }
+      });
+    }
+    return response;
+  });
+};
 
-export const removeUser = params => { return axios.post(`${ base }/user/remove`, params); };
+// 远程调用 get/delete/post/put/patch
+export const call = (api, method, params) => {
+  method = method ? method : 'get';
 
-export const postError = params => { return axios.get(`${ base }/error`, {params: params}); };
+  if (api.substr(0, 1) !== '/') {
+    api = '/' + api;
+  }
 
-export const requestLogin = params => { return axios.post(`${ base }/login`, params).then(res => res.data); };
+  api = base.substr(-1) === '/' ? (base.substr(0, base.length - 1) + api) : (base + api);
 
-export const fetchSchoolList = params => {return axios.get(`${ base }/schools`).then(res => res.data); };
+  // get请求
+  if (method === 'get') {
+    return axios.get(api, {params: params}).then(ret => ret.data);
+  }
 
-export const fetchWorkDurationOptions = params => {return axios.get(`${ base }/work_durations`).then(res => res.data); };
+  // delete请求
+  if (method === 'delete') {
+    return axios.delete(api, {params: params}).then(ret => ret.data);
+  }
 
-export const fetchAcademicOptions = params => {return axios.get(`${ base }/academics`).then(res => res.data); };
+  // post请求
+  if (method === 'post') {
+    return axios.post(api, qs.stringify(params), {headers: form_header}).then(ret => ret.data);
+  }
 
-export const postResume = params => {return axios.post(`${ base }/resume`, params).then(res => res.data);};
+  // put请求
+  if (method === 'put') {
+    return axios.put(api, qs.stringify(params), {headers: form_header}).then(ret => ret.data);
+  }
 
-export const createResume = params => { return axios.post(`${ base }/resume/add`).then(res => res.data); };
+  // patch请求
+  if (method === 'patch') {
+    return axios.patch(api, qs.stringify(params), {headers: form_header}).then(ret => ret.data);
+  }
+};

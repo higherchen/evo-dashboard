@@ -8,6 +8,7 @@ var baseWebpackConfig = require('./webpack.base.conf')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var env = config.build.env
+var CopyWebpackPlugin = require('copy-webpack-plugin')
 
 var webpackConfig = merge(baseWebpackConfig, {
   module: {
@@ -74,7 +75,14 @@ var webpackConfig = merge(baseWebpackConfig, {
     new webpack.optimize.CommonsChunkPlugin({
       name: 'manifest',
       chunks: ['vendor']
-    })
+    }),
+    new CopyWebpackPlugin([
+      {from: path.resolve(__dirname, '../node_modules/mavon-editor/dist/highlightjs/highlight.min.js'), to: path.resolve(__dirname, '../../web/static/highlightjs')},
+      {from: path.resolve(__dirname, '../node_modules/mavon-editor/dist/highlightjs/styles/github.min.css'), to: path.resolve(__dirname, '../../web/static/highlightjs/styles')},
+      {from: path.resolve(__dirname, '../node_modules/mavon-editor/dist/katex/katex.min.js'), to: path.resolve(__dirname, '../../web/static/katex')},
+      {from: path.resolve(__dirname, '../node_modules/mavon-editor/dist/katex/katex.min.css'), to: path.resolve(__dirname, '../../web/static/katex')},
+      {from: path.resolve(__dirname, '../node_modules/mavon-editor/dist/markdown/github-markdown.min.css'), to: path.resolve(__dirname, '../../web/static/markdown')}
+    ])
   ]
 })
 

@@ -1,5 +1,5 @@
 {
-  "name": "element-dashboard",
+  "name": "Dashboard",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -11,22 +11,16 @@
     "type": "git",
     "url": "git+https://github.com/ElemeFE/element-dashboard.git"
   },
-  "author": [
-    "zheng.yu@ele.me",
-    "hanbiao.xiong@ele.me"
-  ],
+  "author": "",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/ElemeFE/element-dashboard/issues"
   },
-  "homepage": "https://github.com/ElemeFE/element-dashboard#readme",
   "dependencies": {
     "axios": "^0.15.2",
     "babel-polyfill": "*",
     "core-js": "^2.4.1",
-    "echarts": "^3.4.0",
-    "element-ui": "^1.0.0",
-    "moment": "^2.17.1",
+    "element-ui": "^2.3.9",
     "vue": "^2.0.1",
     "vue-router": "^2.0.3"
   },
@@ -35,14 +29,18 @@
     "axios-mock-adapter": "^1.7.1",
     "babel-core": "^6.0.0",
     "babel-eslint": "^7.0.0",
+    "babel-helper-vue-jsx-merge-props": "^2.0.2",
     "babel-loader": "^6.0.0",
+    "babel-plugin-syntax-jsx": "^6.18.0",
     "babel-plugin-transform-runtime": "^6.0.0",
-    "babel-preset-es2015": "^6.0.0",
+    "babel-plugin-transform-vue-jsx": "^3.4.3",
+    "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-2": "^6.0.0",
     "babel-register": "^6.0.0",
     "chalk": "^1.1.3",
     "connect-history-api-fallback": "^1.1.0",
     "cooking-vue2": "^0.3.0",
+    "copy-webpack-plugin": "^4.5.1",
     "css-loader": "^0.25.0",
     "eslint": "^3.7.1",
     "eslint-config-elemefe": "^0.1.1",

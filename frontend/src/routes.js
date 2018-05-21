@@ -1,22 +1,19 @@
-import Vue from 'vue';
+/*eslint-disable */
+// 通用
 import Abstract from './pages/common/abstract';
 import NotFound from './pages/common/404';
+import Welcome from './pages/common/welcome';
+import Login from './pages/common/login';
 
-// list with filters page
-import ListWithFilters from './pages/list/with-filters';
-import BigForm from './pages/form/big-form';
-import Login from './pages/login/login';
-import chart from './pages/chart/chart';
-
-const root = Vue.component('root', {
-  template: '<router-view></router-view>'
-});
+import Page1 from './pages/home/page_1';
+import Page2 from './pages/home/page_2';
+import Page3 from './pages/home/page_3';
 
 let routes = [
   {
     path: '/login',
     component: Login,
-    name: 'login',
+    name: '登录',
     meta: {
       hidden: true
     }
@@ -24,59 +21,32 @@ let routes = [
   {
     path: '/404',
     component: NotFound,
-    name: '404',
-    meta: {
-      requiresAuth: true
-    }
+    name: '404'
   },
   {
     path: '/',
-    component: root,
-    meta: {
-      requiresAuth: true
-    },
+    component: Welcome,
+    name: 'welcome'
+  },
+  {
+    path: '/home',
+    component: Abstract,
+    name: '首页',
     children: [
       {
-        path: 'list',
-        component: Abstract,
-        name: '列表',
-        iconClass: 'el-icon-message',
-        children: [
-          {
-            path: 'filters',
-            name: '搜索条件',
-            component: ListWithFilters,
-            imgUrl: 'https://o0p2g4ul8.qnssl.com/vsite%2Fbackground.jpg'
-          }
-        ]
+        path: 'page1',
+        component: Page1,
+        name: '页面-1'
       },
       {
-        path: 'form',
-        component: Abstract,
-        name: '表单',
-        iconClass: 'el-icon-document',
-        children: [
-          {
-            path: 'big-form',
-            name: '简历管理',
-            component: BigForm,
-            imgUrl: 'https://o0p2g4ul8.qnssl.com/vsite%2Fbackground.jpg'
-          }
-        ]
+        path: 'page2',
+        component: Page2,
+        name: '页面-2'
       },
       {
-        path: 'chart',
-        component: chart,
-        name: '图表',
-        iconClass: 'el-icon-document'
-        /* children: [
-          {
-            path: 'big-form',
-            name: '简历管理',
-            component: BigForm,
-            imgUrl: 'https://o0p2g4ul8.qnssl.com/vsite%2Fbackground.jpg'
-          }
-        ]*/
+        path: 'page3',
+        component: Page3,
+        name: '页面-3'
       }
     ]
   },
@@ -85,6 +55,7 @@ let routes = [
     redirect: {path: '/404'}
   }
 ];
+// debugger;
 let menuCount = routes.length;
 routes[menuCount - 2].children.forEach(route => {
   if (route.children) {
@@ -92,5 +63,4 @@ routes[menuCount - 2].children.forEach(route => {
     route.meta.children = route.children;
   }
 });
-
 export default routes;
